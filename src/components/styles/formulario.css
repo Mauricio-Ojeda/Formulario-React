@@ -1,0 +1,14 @@
+
+.row-radio{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.gato-div{
+    margin-left: 5rem;
+}
+
+#gato, #perro{
+    margin-left: 2rem;
+}
+
