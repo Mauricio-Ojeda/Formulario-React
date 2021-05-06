@@ -2,7 +2,7 @@ import React, {Fragment, useState} from 'react'
 import './styles/formulario.css'
 import { v4 as uuid } from 'uuid';
 
-const Formulario = () => {
+const Formulario = ({crearCitas}) => {
     
     //crear state de cita
     const [cita, actualizarCita] = useState({
@@ -15,7 +15,22 @@ const Formulario = () => {
         sintomas: '',
     })
 
+    //State Error Falta completar un campo
     const [error, actualizarError] = useState(false)
+
+    //State input type radio
+    const [radio, actualizarRadio ] = useState({
+        perro: false,
+        gato: false
+    })
+
+    // handle onClick Radio
+    const handleOnClick = e =>{ 
+        
+        actualizarRadio({
+        [e.target.value]:true
+        })
+    }
 
     // handleChange input
 
@@ -43,6 +58,21 @@ const Formulario = () => {
         //Asignar ID
         cita.id = uuid();
 
+        //crear citas
+        crearCitas(cita);
+        
+        //Reiniciar formulario
+        actualizarCita({
+           
+            mascota: '',
+            especie:'',
+            propietario: '',
+            fecha: '',
+            hora: '',
+            sintomas: ''
+        })
+        //Reiniciar radio
+        actualizarRadio({ perro: false, gato: false});
 
     }
 
@@ -70,7 +100,10 @@ const Formulario = () => {
                     onChange={handleChange}
                     value={mascota}
 
-                />                
+                />
+                  
+                <h5 >Especie</h5>   
+                           
                 </label>
                 <div className="row-radio">
                     <div className="perro-div">
@@ -81,6 +114,8 @@ const Formulario = () => {
                             name="especie"
                             value="perro"
                             onChange={handleChange}
+                            onClick={handleOnClick}
+                            checked={radio.perro}
                             
                         />
                         </label>                  
@@ -93,6 +128,8 @@ const Formulario = () => {
                             name="especie"
                             value="gato"                
                             onChange={handleChange}
+                            onClick={handleOnClick}
+                            checked={radio.gato}
 
                         /> 
                         </label>               
