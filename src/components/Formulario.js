@@ -1,6 +1,7 @@
 import React, {Fragment, useState} from 'react'
 import './styles/formulario.css'
 import { v4 as uuid } from 'uuid';
+import PropTypes from 'prop-types'
 
 const Formulario = ({crearCitas}) => {
     
@@ -19,17 +20,18 @@ const Formulario = ({crearCitas}) => {
     const [error, actualizarError] = useState(false)
 
     //State input type radio
-    const [radio, actualizarRadio ] = useState({
-        perro: false,
-        gato: false
-    })
+    const [radio, actualizarRadio ] = useState({perro: false, gato: false});
 
     // handle onClick Radio
     const handleOnClick = e =>{ 
         
-        actualizarRadio({
-        [e.target.value]:true
-        })
+        
+        if(e.target.value === 'perro'){ 
+            actualizarRadio({perro:true, gato: false});
+        } else {
+            actualizarRadio({gato:true, perro: false})    
+        }
+        
     }
 
     // handleChange input
@@ -192,6 +194,12 @@ const Formulario = ({crearCitas}) => {
             </form>
         </Fragment>
     )
+}
+
+Formulario.propTypes = {
+
+  crearCitas: PropTypes.func.isRequired
+
 }
 
 export default Formulario
